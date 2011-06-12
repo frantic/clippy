@@ -1,0 +1,8 @@
+<html>
+<head>
+<script>
+chrome.tabs.onCreated.addListener(function(tab)	{
+	chrome.tabs.executeScript(null, {code: "alert('Yeah, clippy makes shit happen!');"});
+</script>
+</head>
+</html>

@@ -1,0 +1,48 @@
+<html>
+<head>
+</head>
+<body>
+<script>
+var since_id = 0;
+function getTweets(callback) {
+	var xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(data) {
+		if (xhr.readyState == 4) {
+	    	if (xhr.status == 200) {
+				var data = JSON.parse(xhr.responseText);
+				if (since_id == 0) {
+					since_id = data.max_id;
+		            callback(null);
+				} else {
+					since_id = data.max_id;
+		            callback(data);
+				}
+            } else {
+	              callback(null);
+            }
+        }
+    }
+	
+	var url = 'http://search.twitter.com/search.json?';
+	
+	url += 'q=' + encodeURIComponent("#clippy");
+	
+	url += '&since_id=' + since_id;
+	
+	xhr.open("GET", url, true);
+	xhr.send();
+}
+
+function onRequest(request, sender, callback) {
+    if (request.action == 'getTweets') {
+        getTweets(callback);
+    }
+};
+
+// Wire up the listener.
+chrome.extension.onRequest.addListener(onRequest);
+
+</script>
+</body>
+</html>

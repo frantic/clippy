@@ -1,0 +1,32 @@
+{
+	"name": "Clippy reborn!",
+	"version": "0.1",
+	"description": "Your personal assistant at Google Docs",
+	"background_page": "background.html",
+	"browser_action": {
+		"default_icon": "clippy.png",
+		"popup": "popup.html"
+	},
+	"icons": {
+		"16": "clippy16.png",
+		"48": "clippy48.png",
+		"128": "clippy128.png"
+	}, 
+	"content_scripts": [
+		{
+			"matches": ["https://*.google.com/document/*",
+						"https://*.google.com/present/*",
+			            "https://*.google.com/drawings/*",
+						"https://*.google.com/spreadsheet/*"
+			             ],
+			"js": ["jquery.min.js",
+			       "jquery-ui-1.8.13.custom.min.js",
+				   "twitter.js",
+			       "clippy.js"
+			      ]
+		}
+	],
+	"permissions": [
+		"https://docs.google.com", "tabs", "http://search.twitter.com/*"
+	]
+}
